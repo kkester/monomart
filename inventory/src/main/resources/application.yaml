@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: inventory
+
+productapi:
+  url: ${PRODUCT_API_URL:http://localhost:8888/}

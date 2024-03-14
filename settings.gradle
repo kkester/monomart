@@ -1,0 +1,5 @@
+rootProject.name = 'monomart'
+
+include 'agw';
+include 'commerce';
+include 'inventory';

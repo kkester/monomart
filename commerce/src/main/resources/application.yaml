@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: commerce
+
+server:
+  port: 8082
