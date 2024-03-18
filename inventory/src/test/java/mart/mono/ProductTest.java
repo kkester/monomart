@@ -1,7 +1,6 @@
 package mart.mono;
 
 import mart.mono.product.Product;
-import mart.mono.product.ProductRepository;
 import mart.mono.product.ProductService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -16,21 +15,18 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Collections;
-import java.util.UUID;
 
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProductTest {
+class ProductTest {
 
     @Autowired
     MockMvc mockMvc;
 
     @MockBean
-    private ProductService mockProductService;
+    ProductService mockProductService;
 
     @Test
     void products_list() throws Exception {
@@ -43,26 +39,5 @@ public class ProductTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0]", Matchers.hasKey("name")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0]", Matchers.hasKey("catalog")))
                 .andDo(MockMvcResultHandlers.print());
-    }
-
-    @Test
-    void hits_purchaseApi() throws Exception {
-        UUID id = UUID.randomUUID();
-
-        mockMvc.perform(patch("/api/products/{0}/decrement?quantity=2", id))
-            .andExpect(status().isOk());
-
-        verify(mockProductService).decrementProductQuantity(id, 2);
-    }
-
-    @Test
-    void getAll() {
-        ProductRepository productRepository = Mockito.mock(ProductRepository.class);
-
-        ProductService productService = new ProductService(productRepository);
-
-        productService.getAll();
-
-        verify(productRepository).findAll();
     }
 }

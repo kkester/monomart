@@ -1,6 +1,11 @@
 spring:
   application:
     name: commerce
+  cloud:
+    stream:
+      bindings:
+        purchaseEvent:
+          destination: purchase-topic
 
 server:
   port: 8082

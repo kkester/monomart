@@ -1,6 +1,5 @@
 package mart.mono.product;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,16 +21,6 @@ public class ProductRestController {
             return productService.getAll();
         }
         return productService.getForCatalog(catalogKey);
-    }
-
-    @PatchMapping("/{id}/decrement")
-    public ResponseEntity<Boolean> decrementProduct(@PathVariable UUID id, @RequestParam int quantity){
-        boolean IsQuantityAvailable = productService.decrementProductQuantity(id, quantity);
-        if(!IsQuantityAvailable){
-            return ResponseEntity.ok(false);
-        } else {
-            return ResponseEntity.ok(true);
-        }
     }
 
     @GetMapping("/{id}")
