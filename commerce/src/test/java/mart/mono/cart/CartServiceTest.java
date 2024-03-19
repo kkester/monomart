@@ -112,11 +112,11 @@ class CartServiceTest {
                     .builder()
                     .id(UUID.randomUUID())
                     .build());
-
             when(cartRepository.findAll()).thenReturn(items);
-            when (purchasesService.purchase(items)).thenReturn(true);
+
             cartService.checkOut();
 
+            verify(purchasesService).purchase(items);
             verify(cartRepository, times(1)).deleteAll();
         }
 
@@ -128,13 +128,11 @@ class CartServiceTest {
                     .builder()
                     .id(UUID.randomUUID())
                     .build());
-
             when(cartRepository.findAll()).thenReturn(items);
-            when (purchasesService.purchase(items)).thenReturn(false);
-
 
             cartService.checkOut();
 
+            verify(purchasesService).purchase(items);
             verify(cartRepository, times(0)).deleteAll();
         }
     }

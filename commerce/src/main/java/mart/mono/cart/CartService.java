@@ -18,20 +18,19 @@ public class CartService {
 
     public List<CartItem> get() {
         return cartRepository.findAll().stream()
-                .map(cartItemEntity -> cartItemEntity.toCartItem(
-                    restTemplate.getForObject(
-                        "/api/products/{0}",
-                        Product.class,
-                        cartItemEntity.getProductId())))
-                .toList();
+            .map(cartItemEntity -> cartItemEntity.toCartItem(
+                restTemplate.getForObject(
+                    "/api/products/{0}",
+                    Product.class,
+                    cartItemEntity.getProductId())))
+            .toList();
     }
-
 
     public CartItem add(Product product) {
         return cartRepository.save(CartItemEntity.builder()
-                .productId(product.getId())
-                .quantity(1)
-                .build()).toCartItem(product);
+            .productId(product.getId())
+            .quantity(1)
+            .build()).toCartItem(product);
     }
 
     public void remove(UUID cartItemId) {
@@ -40,10 +39,8 @@ public class CartService {
     }
 
     public void checkOut() {
-        List<CartItemEntity> cart = cartRepository.findAll();
-        boolean purchaseSuccess = purchasesService.purchase(cart);
-        if (purchaseSuccess) {
-            cartRepository.deleteAll();
-        }
+        List<CartItemEntity> cartItemEntities = cartRepository.findAll();
+        purchasesService.purchase(cartItemEntities);
+        cartRepository.deleteAll();
     }
 }

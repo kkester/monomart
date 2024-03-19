@@ -1,7 +1,7 @@
 package mart.mono.cart;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mart.mono.MonomartApplication;
+import mart.mono.CommerceApplication;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CartRestController.class)
-@ContextConfiguration(classes = MonomartApplication.class)
+@ContextConfiguration(classes = CommerceApplication.class)
 class CartRestControllerTest {
 
     @MockBean
@@ -38,14 +38,14 @@ class CartRestControllerTest {
     void GetReturnsList() throws Exception {
         UUID uuid = UUID.randomUUID();
         List<CartItem> cartItem = List.of(CartItem
-                .builder()
-                .id(uuid)
-                .build());
+            .builder()
+            .id(uuid)
+            .build());
         when(cartService.get()).thenReturn(cartItem);
 
         mockMvc
-                .perform(get("/api/cart"))
-                .andExpect(jsonPath("$[0].id").value(uuid.toString()));
+            .perform(get("/api/cart"))
+            .andExpect(jsonPath("$[0].id").value(uuid.toString()));
     }
 
     @Test
@@ -54,8 +54,8 @@ class CartRestControllerTest {
         UUID uuid = UUID.randomUUID();
 
         mockMvc
-                .perform(put("/api/cart/{id}", uuid))
-                .andExpect(status().isOk());
+            .perform(put("/api/cart/{id}", uuid))
+            .andExpect(status().isOk());
 
         verify(cartService, times(1)).remove(uuid);
         verify(cartService, times(1)).get();
@@ -65,8 +65,8 @@ class CartRestControllerTest {
     @DisplayName("Should request to checkout when navigating to '/checkout'")
     void canCheckout() throws Exception {
         mockMvc
-                .perform(post("/api/cart/checkout"))
-                .andExpect(status().isOk());
+            .perform(post("/api/cart/checkout"))
+            .andExpect(status().isOk());
 
         verify(cartService, times(1)).checkOut();
     }
@@ -80,23 +80,23 @@ class CartRestControllerTest {
         void canAddValidCartItem() throws Exception {
             UUID uuid = UUID.randomUUID();
             Product item = Product
-                    .builder()
-                    .id(uuid)
-                    .name("Action Jackson's Socks")
-                    .price("420.69")
-                    .build();
+                .builder()
+                .id(uuid)
+                .name("Action Jackson's Socks")
+                .price("420.69")
+                .build();
             String itemJson = objectMapper.writeValueAsString(item);
             when(cartService.add(item)).thenReturn(CartItem
-                    .builder()
-                    .product(item)
-                    .build());
+                .builder()
+                .product(item)
+                .build());
 
             mockMvc
-                    .perform(post("/api/cart")
-                            .contentType(APPLICATION_JSON)
-                            .content(itemJson))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("product.name").value("Action Jackson's Socks"));
+                .perform(post("/api/cart")
+                    .contentType(APPLICATION_JSON)
+                    .content(itemJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("product.name").value("Action Jackson's Socks"));
 
             verify(cartService, times(1)).add(item);
         }
@@ -106,21 +106,19 @@ class CartRestControllerTest {
         void addInvalidCartItemThrows400() throws Exception {
             UUID uuid = UUID.randomUUID();
             Product item = Product
-                    .builder()
-                    .id(uuid)
-                    .name("Action Jackson's Socks")
-                    .price("420.69")
-                    .build();
+                .builder()
+                .id(uuid)
+                .name("Action Jackson's Socks")
+                .price("420.69")
+                .build();
             when(cartService.add(item)).thenReturn(CartItem
-                    .builder()
-                    .product(item)
-                    .build());
+                .builder()
+                .product(item)
+                .build());
 
-            mockMvc
-                    .perform(post("/api/cart")
-                            .contentType(APPLICATION_JSON)
-                            .content((byte[]) null))
-                    .andExpect(status().is4xxClientError());
+            mockMvc.perform(post("/api/cart")
+                    .contentType(APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
 
             verify(cartService, times(0)).add(item);
         }

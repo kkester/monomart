@@ -1,28 +1,21 @@
 package mart.mono.purchases;
 
-import mart.mono.cart.CartItem;
-import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/purchases")
+@RequiredArgsConstructor
 public class PurchasesRestController {
 
     private final PurchasesService purchasesService;
 
-    public PurchasesRestController(PurchasesService purchasesService) {
-        this.purchasesService = purchasesService;
-    }
-
     @GetMapping
-    public List<Purchase> list() {
+    public List<PurchaseEntity> list() {
         return purchasesService.getAll();
-    }
-
-    @PostMapping()
-    public Boolean purchase(@RequestBody List<CartItem> cart){
-//       return purchasesService.purchase(cart);
-        return false;
     }
 }

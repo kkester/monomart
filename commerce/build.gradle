@@ -15,6 +15,12 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 dependencies {
     implementation platform('org.springframework.cloud:spring-cloud-dependencies:2022.0.3')
     implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
