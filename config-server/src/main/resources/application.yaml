@@ -1,0 +1,12 @@
+server.port: 8083
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          default-label: main
+          uri: file:/Users/kkester/workspace/config-repo
+          skipSslValidation: true
