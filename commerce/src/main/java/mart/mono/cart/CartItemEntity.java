@@ -29,9 +29,10 @@ public class CartItemEntity {
 
     private Integer quantity;
 
-    CartItem toCartItem (Product product){
+    CartItem toCartItem(Product product) {
         return CartItem.builder()
-                .product(product)
-                .build();
+            .product(product)
+            .quantity(quantity)
+            .build();
     }
 }
