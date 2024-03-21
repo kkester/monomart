@@ -8,5 +8,7 @@ spring:
       server:
         git:
           default-label: main
-          uri: file:/Users/kkester/workspace/config-repo
+          uri: 'https://gitlab.vulcan.mil/army-software-factory/product-office/sdu-3/3-3/tesseract/experimental/tempgit'
           skipSslValidation: true
+          username: 'Job-Token'
+          password: '${CI_JOB_TOKEN}'

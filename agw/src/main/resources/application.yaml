@@ -3,7 +3,7 @@ server:
 
 spring:
   config:
-    import: configserver:http://localhost:8083
+    import: 'configserver:http://localhost:8083'
 
 management:
   endpoints:

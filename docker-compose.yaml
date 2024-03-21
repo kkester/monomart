@@ -7,3 +7,13 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+
+  config-server:
+    image: config-server:latest
+    container_name: 'config-server'
+    environment:
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=file:/workspace/config-repo
+    volumes:
+      - ../config-repo:/workspace/config-repo
+    ports:
+      - 8083:8083
