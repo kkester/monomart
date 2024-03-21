@@ -1,42 +1,8 @@
 version: "3.8"
 
 services:
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: 'rabbitmq'
-    ports:
-      - 5672:5672
-      - 15672:15672
-
   monomart:
     image: monomart:latest
     container_name: 'monomart'
     ports:
       - 8080:8080
-
-  monomart-agw:
-    image: monomart-agw:latest
-    container_name: 'monomart-agw'
-    environment:
-      - INVENTORY_HOST=monomart-inventory:8081
-      - COMMERCE_HOST=monomart-commerce:8082
-      - MONOMART_HOST=monomart:8080
-    ports:
-      - 8888:8888
-
-  monomart-commerce:
-    image: monomart-commerce:latest
-    container_name: 'monomart-commerce'
-    environment:
-      - PRODUCT_API_URL=http://monomart-agw:8888
-      - RABBIT_HOST=rabbitmq
-    ports:
-      - 8082:8082
-
-  monomart-inventory:
-    image: monomart-inventory:latest
-    container_name: 'monomart-inventory'
-    environment:
-      - RABBIT_HOST=rabbitmq
-    ports:
-      - 8081:8081
