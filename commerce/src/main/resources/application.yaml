@@ -6,6 +6,11 @@ spring:
       bindings:
         purchaseEvent:
           destination: purchase-topic
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
 
 server:
   port: 8082
+
+productapi:
+  url: ${PRODUCT_API_URL:http://localhost:8888/}

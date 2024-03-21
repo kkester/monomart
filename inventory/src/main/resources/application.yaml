@@ -11,6 +11,5 @@ spring:
       bindings:
         purchaseEvent-in-0:
           destination: purchase-topic
-
-productapi:
-  url: ${PRODUCT_API_URL:http://localhost:8888/}
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
