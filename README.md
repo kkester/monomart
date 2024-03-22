@@ -7,13 +7,17 @@ Monomart is a sample application written with Spring Boot that is intended to se
 The makeup of Monomart is a Spring Boot web application, with a react frontend being served out from the embedded Tomcat.  This means that when the application is run, the UI is accessible from your browser on https://localhost:8080 (by default).
 
 ## To run the application
-First, launch `RabbitMQ` iin a docker container by running `docker compose up -d`.
+First, launch `RabbitMQ` in a docker container by running `docker run -d --name rabbitmq -p15672:15672 -p5672:5672 rabbitmq:management`.
 
 Ensure that you are running the application with Java 17.
 * Run the frontend application `./gradlew bootRun`
 * Run the commerce application `./gradlew commerce:bootRun`
 * Run the inventory application `./gradlew inventory:bootRun`
 * Run the API Gateway application `./gradlew agw:bootRun`
+
+## Dev Environment
+Execute `./buildScript.sh` to compile, build, and publish a docker image for each microservice.
+Run `docker compose up -d` to launch all applications and services in docker containers.
 
 ## Workshop Scenario
 
