@@ -34,11 +34,9 @@ describe('Purchases', () => {
     const { getByText } = render(<Purchases purchaseApi={ new PurchaseApi() }/>);
 
     const historyButton = getByText('History');
-
     historyButton.click();
 
     const hideButton = getByText('»');
-
     hideButton.click();
 
     getByText('History');

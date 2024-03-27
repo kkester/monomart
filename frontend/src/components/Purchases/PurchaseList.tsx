@@ -16,7 +16,7 @@ export const PurchaseList: React.FC<Props> = ({ purchaseApi, updateShowPurchases
       .then(items => {
         setPurchases(items);
       });
-  }, []);
+  }, [purchases]);
 
   return (
     <section className="purchase-list">

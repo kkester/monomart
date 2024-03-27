@@ -20,6 +20,8 @@ public class PurchaseEntity {
     @GenericGenerator(name = "uuid-hibernate-generator", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
+    private PurchaseStatus status;
+
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
     private List<PurchasedItemEntity> items;
 }

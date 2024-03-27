@@ -22,7 +22,9 @@ public class PurchasesService {
     }
 
     public void purchase(List<CartItemEntity> cartItems) {
-        PurchaseEntity purchaseEntity = new PurchaseEntity();
+        PurchaseEntity purchaseEntity = PurchaseEntity.builder()
+            .status(PurchaseStatus.NEW)
+            .build();
         List<PurchasedItemEntity> items = cartItems.stream()
             .map(cartItem -> PurchasedItemEntity.builder()
                 .purchase(purchaseEntity)

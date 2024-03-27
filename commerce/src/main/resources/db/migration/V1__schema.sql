@@ -7,7 +7,8 @@ create table cart_items
 );
 create table purchases
 (
-    id uuid not null,
+    id     uuid not null,
+    status text not null,
     primary key (id)
 );
 
