@@ -2,16 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import {Home} from "./pages/Home";
-import {Gateway} from "./domain/Gateway";
-import {CartModel} from "./domain/cart/CartModel";
+import { Home } from './pages/Home';
+import { Gateway } from './domain/Gateway';
+import { CartModel } from './domain/cart/CartModel';
 
 const gateway = new Gateway();
 const cartModel = new CartModel(gateway.cartApi);
 cartModel.init();
 gateway.init().then(categories => {
   ReactDOM.render(<Home gateway={gateway} categories={categories}
-                        cartModel={cartModel}/>, document.getElementById('root'));
+                        cartModel={cartModel} purchaseApi={gateway.purchaseApi}/>, document.getElementById('root'));
 });
 
 

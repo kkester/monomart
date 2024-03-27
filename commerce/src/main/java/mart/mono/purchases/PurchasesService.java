@@ -31,10 +31,11 @@ public class PurchasesService {
                 .build())
             .toList();
         purchaseEntity.setItems(items);
-        purchasesRepository.save(purchaseEntity);
+        PurchaseEntity savedPurchaseEntity = purchasesRepository.save(purchaseEntity);
 
         cartItems.forEach(cartItem -> {
             PurchaseEvent purchaseEvent = PurchaseEvent.builder()
+                .purchaseId(savedPurchaseEntity.getId())
                 .productId(cartItem.getProductId())
                 .quantity(cartItem.getQuantity())
                 .build();

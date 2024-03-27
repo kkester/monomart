@@ -12,6 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PurchaseEvent {
+    private UUID purchaseId;
     private UUID productId;
     private Integer quantity;
 }

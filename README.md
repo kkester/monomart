@@ -4,7 +4,7 @@ Monomart is a sample application written with Spring Boot that is intended to se
 
 ## Components
 
-The makeup of Monomart is a Spring Boot web application, with a react frontend being served out from the embedded Tomcat.  This means that when the application is run, the UI is accessible from your browser on https://localhost:8080 (by default).
+The makeup of Monomart is a Spring Boot web application, with a react frontend being served out from the embedded Tomcat.  This means that when the application is run, the UI is accessible from your browser on https://localhost:8080 (by default).  Running `yarn start` from the frontend folder which will make the app accessible at http://localhost:3000 is also supported.
 
 ## To run the application
 First, launch `RabbitMQ` in a docker container by running `docker run -d --name rabbitmq -p15672:15672 -p5672:5672 rabbitmq:management`.
