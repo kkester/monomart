@@ -2,19 +2,35 @@
 set -e
 
 echo "Building monomart docker image"
-./gradlew bootBuildImage --imageName=monomart
+echo "************** Building Monomart jar file **************"
+./gradlew clean bootJar
+
+echo "************** Building Monomart docker image **************"
+docker build -t monomart .
 
 echo "Building AGW docker image"
+echo "************** Building AGW jar file **************"
 cd agw
-./gradlew bootBuildImage --imageName=monomart-agw
+./gradlew clean bootJar
+
+echo "************** Building AGW docker image **************"
+docker build -t monomart-agw .
 cd ..
 
 echo "Building Commerce docker image"
+echo "************** Building Commerce jar file **************"
 cd commerce
-./gradlew bootBuildImage --imageName=monomart-commerce
+./gradlew clean bootJar
+
+echo "************** Building Commerce docker image **************"
+docker build -t monomart-commerce .
 cd ..
 
 echo "Building Inventory docker image"
+echo "************** Building Inventory jar file **************"
 cd inventory
-./gradlew bootBuildImage --imageName=monomart-inventory
+./gradlew clean bootJar
+
+echo "************** Building Inventory docker image **************"
+docker build -t monomart-inventory .
 cd ..
