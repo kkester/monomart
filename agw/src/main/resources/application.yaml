@@ -2,6 +2,8 @@ server:
   port: 8888
 
 spring:
+  application:
+    name: monomart-gw
   threads:
     virtual:
       enabled: true
@@ -27,3 +29,8 @@ spring:
         uri: 'http://${MONOMART_HOST:localhost:8080}'
         predicates:
           - Path=/**
+
+management:
+  tracing:
+    enabled: true
+    sampling.probability: 1.0

@@ -13,3 +13,8 @@ spring:
           destination: purchase-topic
   rabbitmq:
     host: ${RABBIT_HOST:localhost}
+
+management:
+  tracing:
+    enabled: true
+    sampling.probability: 1.0
