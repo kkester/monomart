@@ -16,6 +16,10 @@ management:
   tracing:
     enabled: true
     sampling.probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,metrics,info
 
 productapi:
   url: ${PRODUCT_API_URL:http://localhost:8888/}
