@@ -7,8 +7,8 @@ import org.springframework.web.client.RestClient;
 @Configuration
 public class RestClientConfig {
     @Bean
-    public RestClient restClient(ProductApiProperties productApiProperties) {
-        return RestClient.builder()
+    public RestClient restClient(ProductApiProperties productApiProperties, RestClient.Builder builder) {
+        return builder
                 .baseUrl(productApiProperties.getUrl())
                 .build();
     }

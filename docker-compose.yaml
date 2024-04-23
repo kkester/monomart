@@ -11,6 +11,8 @@ services:
   monomart:
     image: monomart:latest
     container_name: 'monomart'
+    environment:
+      - ZIPKIN_HOST=zipkin:9411
     ports:
       - 8080:8080
 
@@ -21,6 +23,7 @@ services:
       - INVENTORY_HOST=monomart-inventory:8081
       - COMMERCE_HOST=monomart-commerce:8082
       - MONOMART_HOST=monomart:8080
+      - ZIPKIN_HOST=zipkin:9411
     ports:
       - 8888:8888
 
@@ -30,6 +33,7 @@ services:
     environment:
       - PRODUCT_API_URL=http://monomart-agw:8888
       - RABBIT_HOST=rabbitmq
+      - ZIPKIN_HOST=zipkin:9411
     ports:
       - 8082:8082
 
@@ -38,6 +42,7 @@ services:
     container_name: 'monomart-inventory'
     environment:
       - RABBIT_HOST=rabbitmq
+      - ZIPKIN_HOST=zipkin:9411
     ports:
       - 8081:8081
 
@@ -63,13 +68,10 @@ services:
     networks:
       - monitoring
 
-  loki:
-    image: grafana/loki:2.9.0
+  zipkin:
+    image: openzipkin/zipkin
     ports:
-      - "3100:3100"
-    command: -config.file=/etc/loki/local-config.yaml
-    networks:
-      - loki
+      - "9411:9411"
 
 networks:
   monitoring:

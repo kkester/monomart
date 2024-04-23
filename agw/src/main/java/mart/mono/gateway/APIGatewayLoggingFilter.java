@@ -14,7 +14,10 @@ public class APIGatewayLoggingFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         if (request instanceof HttpServletRequest httpServletRequest) {
-            log.info("Request: {} : {}", httpServletRequest.getMethod(), httpServletRequest.getRequestURI());
+            String requestURI = httpServletRequest.getRequestURI();
+            if (!requestURI.contains("/actuator/prometheus")) {
+                log.info("Request: {} : {}", httpServletRequest.getMethod(), requestURI);
+            }
         } else {
             log.info("Request: {}", request.getRemoteAddr());
         }
