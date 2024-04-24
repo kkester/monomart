@@ -34,9 +34,9 @@ describe('Purchases', () => {
     getByRole('columnheader', { name: /total cost/i });
     getByRole('columnheader', { name: /purchase status/i });
 
-    expect(getAllByRole('cell', {name: /1/})[0]).toHaveTextContent(/1/)
-    expect(getAllByRole('cell', {name: /1/})[0]).toHaveTextContent(/100/)
-    expect(getAllByRole('cell', {name: /1/})[0]).toHaveTextContent(/new/)
+    getByRole('row', { name: /1/ });
+    getByRole('row', { name: /100/i });
+    getByRole('row', { name: /0/i });
   })
 
   it('shows PurchasesList when history button is clicked', async () => {

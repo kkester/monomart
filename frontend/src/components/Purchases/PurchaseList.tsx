@@ -34,12 +34,12 @@ export const PurchaseList: React.FC<Props> = ({ purchaseApi, updateShowPurchases
             <th>Total Cost</th>
             <th>Purchase Status</th>
           </tr>
-          {/*{purchases.map(({id, totalCost, purchaseStatus}, i) => (*/}
-          {/*  <tr key={i}>*/}
-          {/*    <td>{id}</td>*/}
-          {/*    <td>{totalCost}</td>*/}
-          {/*    <td>{purchaseStatus}</td>*/}
-          {/*  </tr>))}*/}
+          {purchases.map(({id, totalCost, purchaseStatus}, i) => (
+            <tr key={i}>
+              <td>{id}</td>
+              <td>{totalCost}</td>
+              <td>{purchaseStatus}</td>
+            </tr>))}
           </tbody>
         </table>
       </div>
