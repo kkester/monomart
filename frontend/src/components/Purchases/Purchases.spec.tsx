@@ -23,20 +23,20 @@ describe('Purchases', () => {
     const purchaseApi = new PurchaseApi();
     purchaseApi.list = jest.fn().mockReturnValue(promise);
 
-    const { getByText, getAllByRole } = render(<Purchases purchaseApi={ purchaseApi }/>);
+    const { getByText, getAllByRole, getByRole } = render(<Purchases purchaseApi={ purchaseApi }/>);
     let purchasesButton = getByText('History');
     purchasesButton.click();
     await act(async () => {
       await promise;
     });
 
-    getByText(/purchase id/i);
-    getByText(/total cost/i);
-    getByText(/purchase status/i);
+    getByRole('columnheader', { name: /purchase id/i });
+    getByRole('columnheader', { name: /total cost/i });
+    getByRole('columnheader', { name: /purchase status/i });
 
-    expect(getAllByRole('td', {name: /1/})[0]).toHaveTextContent(/1/)
-    expect(getAllByRole('td', {name: /1/})[0]).toHaveTextContent(/100/)
-    expect(getAllByRole('td', {name: /1/})[0]).toHaveTextContent(/new/)
+    expect(getAllByRole('cell', {name: /1/})[0]).toHaveTextContent(/1/)
+    expect(getAllByRole('cell', {name: /1/})[0]).toHaveTextContent(/100/)
+    expect(getAllByRole('cell', {name: /1/})[0]).toHaveTextContent(/new/)
   })
 
   it('shows PurchasesList when history button is clicked', async () => {
