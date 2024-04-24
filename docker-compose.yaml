@@ -13,6 +13,7 @@ services:
     container_name: 'monomart'
     environment:
       - ZIPKIN_HOST=zipkin:9411
+      - LOKI_HOST=loki:3100
     ports:
       - 8080:8080
 
@@ -24,6 +25,7 @@ services:
       - COMMERCE_HOST=monomart-commerce:8082
       - MONOMART_HOST=monomart:8080
       - ZIPKIN_HOST=zipkin:9411
+      - LOKI_HOST=loki:3100
     ports:
       - 8888:8888
 
@@ -34,6 +36,7 @@ services:
       - PRODUCT_API_URL=http://monomart-agw:8888
       - RABBIT_HOST=rabbitmq
       - ZIPKIN_HOST=zipkin:9411
+      - LOKI_HOST=loki:3100
     ports:
       - 8082:8082
 
@@ -43,6 +46,7 @@ services:
     environment:
       - RABBIT_HOST=rabbitmq
       - ZIPKIN_HOST=zipkin:9411
+      - LOKI_HOST=loki:3100
     ports:
       - 8081:8081
 
@@ -55,8 +59,6 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - ./observability/prometheus_config.yml:/opt/bitnami/prometheus/conf/prometheus.yml
-    networks:
-      - monitoring
 
   grafana:
     image: grafana/grafana
@@ -65,14 +67,14 @@ services:
       - "9091:3000"
     volumes:
       - /tmp/grafana/storage:/var/lib/grafana
-    networks:
-      - monitoring
 
   zipkin:
     image: openzipkin/zipkin
     ports:
       - "9411:9411"
 
-networks:
-  monitoring:
-    driver: bridge
+  loki:
+    image: grafana/loki:2.8.2
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
