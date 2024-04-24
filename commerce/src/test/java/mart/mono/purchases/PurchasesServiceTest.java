@@ -68,4 +68,34 @@ class PurchasesServiceTest {
             .quantity(cartItemEntity.getQuantity())
             .build());
     }
+
+    @Test
+    void verifyPurchaseConditionsForComplete() {
+        CartItemEntity cartItemEntity = CartItemEntity.builder()
+            .quantity(1)
+            .productId(UUID.randomUUID())
+            .build();
+
+        List<CartItemEntity> cartItemEntities = List.of(cartItemEntity);
+
+        PurchaseEntity purchaseEntity = PurchaseEntity.builder()
+            .id(UUID.randomUUID())
+            .build();
+        when(purchasesRepository.save(any())).thenReturn(purchaseEntity);
+
+        purchasesService.purchase(cartItemEntities);
+
+        verify(purchasesRepository).save(purchaseCaptor.capture());
+        PurchaseEntity actualPurchaseEntity = purchaseCaptor.getValue();
+        assertThat(actualPurchaseEntity.getStatus()).isEqualTo(PurchaseStatus.NEW);
+        assertThat(actualPurchaseEntity.getItems()).hasSize(1);
+
+        verify(streamBridge).send(eq(PURCHASE_EVENT), purchaseEventCaptor.capture());
+        PurchaseEvent actualPurchaseEvent = purchaseEventCaptor.getValue();
+        assertThat(actualPurchaseEvent).isEqualTo(PurchaseEvent.builder()
+            .purchaseId(purchaseEntity.getId())
+            .productId(cartItemEntity.getProductId())
+            .quantity(cartItemEntity.getQuantity())
+            .build());
+    }
 }
