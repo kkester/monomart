@@ -10,6 +10,15 @@ describe('Purchases', () => {
     getByText('History');
   });
 
+  it('shows PurchaseTable when history button is clicked', async () =>{
+    const items = [
+      {
+        id: '1',
+        totalCost: 100,
+        purchaseStatus:
+      }
+    ];
+  })
   it('shows PurchasesList when history button is clicked', async () => {
     const items = [
       {

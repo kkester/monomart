@@ -1,13 +1,8 @@
-describe("template spec", () => {
-  it("passes", () => {
-    cy.visit("");
-  });
-});
-
 describe("View purchase history", () => {
   it("Shopper is on Home Page and navigates to the History", () => {
-    alert(JSON.stringify(Cypress.config(), null, 2))
-    cy.visit("");
+    cy.visit("localhost:8888");
     cy.findByLabelText(/history/i).click();
+    cy.findByText(/purchases/i);
+    cy.findByRole("table");
   })
 })
