@@ -1,12 +1,13 @@
 describe("template spec", () => {
   it("passes", () => {
-    cy.visit("http://localhost:8888");
+    cy.visit("");
   });
 });
 
 describe("View purchase history", () => {
   it("Shopper is on Home Page and navigates to the History", () => {
-    cy.visit("http://localhost:8888");
+    alert(JSON.stringify(Cypress.config(), null, 2))
+    cy.visit("");
     cy.findByLabelText(/history/i).click();
   })
 })
