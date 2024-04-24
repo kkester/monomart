@@ -2,5 +2,5 @@
 export type Purchase = {
   id: string,
   totalCost: number,
-  purchaseStatus: string
+  purchaseStatus: number
 }

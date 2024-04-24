@@ -25,6 +25,20 @@ export const PurchaseList: React.FC<Props> = ({ purchaseApi, updateShowPurchases
         onClick={ () => updateShowPurchases(false) }>&raquo;</button>
       <header>
         <h2>{ purchases.length } Purchases</h2>
+        <table>
+          <tr>
+              <th>Purchase ID</th>
+              <th>Total Cost</th>
+              <th>Purchase Status</th>
+          </tr>
+            {purchases.map(({ id, totalCost, purchaseStatus }, i) => (
+                  <tr>
+                      <td>{id}</td>
+                      <td>{totalCost}</td>
+                      <td>{purchaseStatus}</td>
+                  </tr>
+            ))}
+        </table>
       </header>
     </section>
   );
